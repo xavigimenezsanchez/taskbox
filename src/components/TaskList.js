@@ -23,7 +23,7 @@ export function PureTaskList({ loading, tasks, onPinTask, onArchiveTask }) {
 
   if (loading) {
     return (
-      <div className="list-items">
+      <div key="loading" className="list-items">
         {LoadingRow}
         {LoadingRow}
         {LoadingRow}
@@ -36,7 +36,7 @@ export function PureTaskList({ loading, tasks, onPinTask, onArchiveTask }) {
 
   if (tasks.length === 0) {
     return (
-      <div className="list-items">
+      <div key="noTasks" className="list-items">
         <div className="wrapper-message">
           <span className="icon-check" />
           <div className="title-message">You have no tasks</div>
@@ -49,10 +49,11 @@ export function PureTaskList({ loading, tasks, onPinTask, onArchiveTask }) {
     ...tasks.filter((t) => t.state === "TASK_PINNED"),
     ...tasks.filter((t) => t.state !== "TASK_PINNED"),
   ];
+  let i = 0;
   return (
-    <div className="list-items">
+    <div key="tasks" className="list-items">
       {tasksInOrder.map((task) => (
-        <Task key={tasks.id} task={task} {...events} />
+        <Task key={i++} task={task} {...events} />
       ))}
     </div>
   );
